@@ -1,1 +1,18 @@
 # Bilibili-Dynamics
+
+更实用的B站动态列表。
+
+## 安装
+
+```sh
+# https://github.com/Nemo2011/bilibili-api
+pip3 install Django
+pip3 install bilibili-api-python
+```
+
+## To-Do
+
+- [ ] [获取当前关注列表](get_all_followings.py)
+- [ ] 对关注列表进行分类
+- [ ] 获取UP主动态
+- [ ] 前端展示
