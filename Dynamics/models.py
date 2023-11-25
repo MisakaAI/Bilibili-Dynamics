@@ -5,6 +5,7 @@ class followings(models.Model):
     uid = models.PositiveBigIntegerField(unique=True, verbose_name='UID')
     name = models.CharField(max_length=20, unique=True, verbose_name='昵称')
     name_history = models.JSONField(null=True, blank=True, default=list, verbose_name='昵称历史')
+    note = models.CharField(null=True, blank=True, max_length=100, verbose_name='简介') 
     sign = models.CharField(null=True, blank=True, max_length=100, verbose_name='个性签名')
     face = models.URLField(null=True, blank=True, verbose_name='头像')
     info = models.JSONField(null=True, blank=True, verbose_name='原始数据')

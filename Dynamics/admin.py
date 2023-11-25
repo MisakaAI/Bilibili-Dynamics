@@ -1,7 +1,18 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
-from .models import followings
-admin.site.register(followings)
+# 管理页面顶部的文字
+admin.site.site_header = '哔哩哔哩动态 Plus'
+#  <title> （字符串）末尾放置的文字。
+admin.site.site_title = '哔哩哔哩 (゜-゜)つロ 干杯~'
+# 管理索引页顶部的文字（一个字符串）
+admin.site.index_title = '管理后台'
+
+@admin.register(followings)
+class followingsAdmin(admin.ModelAdmin):
+    list_display = ['name','uid','_class','note','sign']
+    list_editable = ['_class','note']
+    search_fields = ['name','uid']
+
 from .models import follow_class
 admin.site.register(follow_class)

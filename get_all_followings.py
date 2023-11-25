@@ -24,7 +24,7 @@ for f in get_all_followings:
         u = user.User(f)
         info = sync(u.get_user_info())
         if len(followings.objects.filter(uid=f)) == 0:
-            print('[{}] {}'.format(f,info['name']))
+            print('> 新关注 [{}] {}'.format(f,info['name']))
             followings.objects.create(uid=f, # UID
                                   name=info['name'], # 名称
                                   sign=info['sign'], # 个性签名
