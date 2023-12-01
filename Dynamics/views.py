@@ -13,7 +13,6 @@ def index(request):
             followings_list[f.name][u.name] = {
                  "uid": u.uid,
                  "note": u.note,
-                 "face": u.face,
             }
     followings_list['None'] = {}
     for u in followings.objects.filter(_class=None):
@@ -47,7 +46,6 @@ def dynamics(request):
             u_dynamics = {
                  "uid": f_user.uid,
                  "note": f_user.note,
-                 "face": f_user.face,
                  "dynamics": []
             }
             for i in p['cards']:

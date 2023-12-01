@@ -7,7 +7,6 @@ class followings(models.Model):
     name_history = models.JSONField(null=True, blank=True, default=list, verbose_name='昵称历史')
     note = models.CharField(null=True, blank=True, max_length=100, verbose_name='简介') 
     sign = models.CharField(null=True, blank=True, max_length=100, verbose_name='个性签名')
-    face = models.URLField(null=True, blank=True, verbose_name='头像')
     info = models.JSONField(null=True, blank=True, verbose_name='原始数据')
     _class = models.ForeignKey('follow_class', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='类型')
 
