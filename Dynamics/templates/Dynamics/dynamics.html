@@ -11,6 +11,7 @@
     <style>
         body {
             width: 100%;
+            margin: 0 auto;
             color: #333;
         }
 
@@ -25,7 +26,6 @@
         }
 
         #app {
-            width: 100%;
             display: flex;
             display: -webkit-flex;
             flex-flow: column nowrap;
@@ -37,12 +37,48 @@
             width: 300px;
         }
 
-        h2 {
-            margin-left: 1em;
+        .h1 {
+            margin: 1em 0 0 0;
+            width: calc(100% - 1em);
+            padding-left: 1em;
+            font-size: 2em;
+            background: #333;
+            color: #fff;
+        }
+
+        .h2 {
+            margin: 30px 0 10px 10px;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .h2 a {
+            margin-left: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .face {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .face img {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .card_box {
-            width: 100%;
             display: flex;
             display: -webkit-flex;
             flex-flow: row wrap;
@@ -61,11 +97,10 @@
             align-items: center;
             border-radius: 10px;
             background-color: #eee;
-            box-shadow: 0 0 10px #666;
         }
 
         .card:hover {
-            box-shadow: 0 0 10px #333;
+            background-color: #ddd;
         }
 
         .card_img {
@@ -112,6 +147,45 @@
             align-items: center;
             color: #999;
         }
+
+        .dynamics_none {
+            padding: 1.5em;
+            margin-bottom: 1em;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .dynamics_none a {
+            height: 1em;
+            line-height: 1em;
+            margin: 0 5px 0 5px;
+            padding: 5px;
+        }
+
+        .flex_row {
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .navigation {
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .navigation a {
+            height: 1em;
+            line-height: 1em;
+            margin: 5px;
+        }
     </style>
 </head>
 
@@ -120,43 +194,56 @@
         <div class="navigation">
             {% for i in class %}
             {% if i.id == class_id %}
-            <a href="/dynamics/{{ i.id }}/" style="color: #d63a4a;">{{ i.name }}</a>
+            <a href="/dynamics/{{ i.id }}/" style="color: #d63a4a; pointer-events:none; text-decoration: underline;">
+                <div>{{ i.name }}</div>
+            </a>
             {% else %}
-            <a href="/dynamics/{{ i.id }}/">{{ i.name }}</a>
-            {% endif%}
+            <a href="/dynamics/{{ i.id }}/">
+                <div>{{ i.name }}</div>
+            </a>
+            {% endif %}
             {% endfor %}
         </div>
         {% for key,value in data.items %}
-        {% if class_id == 0 %}
-        <h1>{{ key }}</h1>
-        {% endif %}
-        {% for u_name,u_info in value.items %}
-        <h2>
-            <a href="https://space.bilibili.com/{{ u_info.uid }}/">
-                <b>{{ u_name }}</b>
-            </a>
-            <span style="font-size: 0.7em; color: gray; margin-left: 0.5em">{{ u_info.note }}</span>
-        </h2>
-        <div class="card_box">
-            {% for i in u_info.dynamics%}
-            <a href="{{ i.link }}" target="_blank">
-                <div class="card">
-                    <div class="card_img">
-                        <img src="{{ i.pic }}">
-                    </div>
-                    <div class="card_title">
-                        <div class="card_title_main">{{ i.title }}</div>
-                        <div class="card_title_time">
-                            <span>{{ i.tname }}</span>
-                            <span>{{ i.pubdate }}</span>
-                        </div>
-                    </div>
+        {% if value|length != 0 %}
+        <div class="h1">{{ key }}</div>
+        <div class="flex_row">
+            {% for u_name,u_info in value.items %}
+            <div class="flex_block">
+                <div class="h2">
+                    <div class="face"><img src="{{ u_info.face }}"></div>
+                    <a href="https://space.bilibili.com/{{ u_info.uid }}/" target="_blank">{{ u_name }}</a>
+                    <span style="color: gray; margin-left: 0.5em">{{ u_info.note }}</span>
                 </div>
-            </a>
+                <div class="card_box">
+                    {% for i in u_info.dynamics%}
+                    <a href="{{ i.link }}" target="_blank">
+                        <div class="card">
+                            <div class="card_img">
+                                <img src="{{ i.pic }}">
+                            </div>
+                            <div class="card_title">
+                                <div class="card_title_main">{{ i.title }}</div>
+                                <div class="card_title_time">
+                                    <span>{{ i.tname }}</span>
+                                    <span>{{ i.pubdate }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
             {% endfor %}
         </div>
+        {% endif %}
         {% endfor %}
-        {% endfor %}
+        <div class="h1">无动态</div>
+        <div class="dynamics_none">
+            {% for uid,name in dynamics_none%}
+            <a href="https://space.bilibili.com/{{ uid }}/" target="_blank">{{ name }}</a>
+            {% endfor %}
+        </div>
     </div>
 </body>
 

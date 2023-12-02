@@ -56,9 +56,9 @@
         <!-- {{ data }} -->
         {% for x,y in data.items %}
         <div>
-            <h2>{{ x }}</h2>
+            <a href="http://127.0.0.1:8000/dynamics/{{ y.id }}/"><h2>{{ x }}</h2></a>
             <ul>
-                {% for up_name,up_info in y.items %}
+                {% for up_name,up_info in y.data.items %}
                 <li>
                     <a href="https://space.bilibili.com/{{ up_info.uid }}/" target="_blank">
                         <b>{{ up_name }}</b>

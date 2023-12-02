@@ -10,9 +10,14 @@ admin.site.index_title = '管理后台'
 
 @admin.register(followings)
 class followingsAdmin(admin.ModelAdmin):
-    list_display = ['name','uid','_class','note','sign']
-    list_editable = ['_class','note']
+    list_display = ['name','uid','_class','note','sign','show']
+    list_editable = ['_class','note','show']
     search_fields = ['name','uid']
+    list_filter = ['_class']
 
-from .models import follow_class
-admin.site.register(follow_class)
+# from .models import follow_class
+# admin.site.register(follow_class)
+
+@admin.register(follow_class)
+class follow_classAdmin(admin.ModelAdmin):
+    list_display = ['name','show','star']

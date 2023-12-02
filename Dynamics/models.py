@@ -8,6 +8,7 @@ class followings(models.Model):
     note = models.CharField(null=True, blank=True, max_length=100, verbose_name='简介') 
     sign = models.CharField(null=True, blank=True, max_length=100, verbose_name='个性签名')
     info = models.JSONField(null=True, blank=True, verbose_name='原始数据')
+    show = models.BooleanField(default=False, verbose_name='默认展示启用')
     _class = models.ForeignKey('follow_class', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='类型')
 
     def __str__(self) -> str:
@@ -21,6 +22,8 @@ class followings(models.Model):
 
 class follow_class(models.Model):
     name = models.CharField(max_length=20, unique=True, verbose_name='分类名称')
+    show = models.BooleanField(default=True, verbose_name='导航栏中展示')
+    star = models.BooleanField(default=True, verbose_name='默认列表启用')
 
     def __str__(self) -> str:
         return self.name
