@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1" />
+    <title>哔哩哔哩 动态</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            width: 100%;
+            color: #333;
+        }
+
+        a {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: green;
+        }
+
+        #app {
+            width: 100%;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        li {
+            width: 300px;
+        }
+
+        h2 {
+            margin-left: 1em;
+        }
+
+        .card_box {
+            width: 100%;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .card {
+            width: 240px;
+            height: 220px;
+            margin: 5px;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #eee;
+            box-shadow: 0 0 10px #666;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 10px #333;
+        }
+
+        .card_img {
+            width: 240px;
+            height: 150px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card_img img {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card_title {
+            width: 100%;
+            margin-top: 5px;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            font-size: 0.8em;
+        }
+
+        .card_title_main {
+            flex-grow: 1;
+            width: 94%;
+        }
+
+        .card_title_time {
+            width: 94%;
+            padding: 0 3% 5px 3%;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="navigation">
+            {% for i in class %}
+            {% if i.id == class_id %}
+            <a href="/dynamics/{{ i.id }}/" style="color: #d63a4a;">{{ i.name }}</a>
+            {% else %}
+            <a href="/dynamics/{{ i.id }}/">{{ i.name }}</a>
+            {% endif%}
+            {% endfor %}
+        </div>
+        {% for key,value in data.items %}
+        {% if class_id == 0 %}
+        <h1>{{ key }}</h1>
+        {% endif %}
+        {% for u_name,u_info in value.items %}
+        <h2>
+            <a href="https://space.bilibili.com/{{ u_info.uid }}/">
+                <b>{{ u_name }}</b>
+            </a>
+            <span style="font-size: 0.7em; color: gray; margin-left: 0.5em">{{ u_info.note }}</span>
+        </h2>
+        <div class="card_box">
+            {% for i in u_info.dynamics%}
+            <a href="{{ i.link }}" target="_blank">
+                <div class="card">
+                    <div class="card_img">
+                        <img src="{{ i.pic }}">
+                    </div>
+                    <div class="card_title">
+                        <div class="card_title_main">{{ i.title }}</div>
+                        <div class="card_title_time">
+                            <span>{{ i.tname }}</span>
+                            <span>{{ i.pubdate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+
+</html>

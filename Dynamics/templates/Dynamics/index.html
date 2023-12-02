@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1" />
+    <title>哔哩哔哩 动态</title>
+    <style>
+        h1 {
+            width: 450px;
+            text-align: center;
+            background-color: #555;
+            color: #fff;
+        }
+
+        h3 {
+            margin: 0;
+            text-align: center;
+            width: 450px;
+        }
+
+        body {
+            color: #333;
+        }
+
+        a {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: green;
+        }
+
+        #app {
+            height: 4500px;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: column wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        li {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>B站关注列表</h1>
+        <h3>@勤劳的牧场主</h3>
+        <!-- {{ data }} -->
+        {% for x,y in data.items %}
+        <div>
+            <h2>{{ x }}</h2>
+            <ul>
+                {% for up_name,up_info in y.items %}
+                <li>
+                    <a href="https://space.bilibili.com/{{ up_info.uid }}/" target="_blank">
+                        <b>{{ up_name }}</b>
+                    </a>
+                    <span style="font-size: 0.8em; color: gray; margin-left: 0.5em">{{ up_info.note }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

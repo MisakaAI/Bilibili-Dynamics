@@ -12,7 +12,7 @@ pip3 install bilibili-api-python
 
 ## To-Do
 
-- [ ] [获取当前关注列表](get_all_followings.py)
-- [ ] 对关注列表进行分类
+- [x] [获取当前关注列表](get_all_followings.py)
+- [x] 对关注列表进行分类
 - [ ] 获取UP主动态
 - [ ] 前端展示
