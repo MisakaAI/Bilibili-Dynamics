@@ -8,6 +8,7 @@
     <title>哔哩哔哩 动态</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="shortcut icon" href="https://www.bilibili.com/favicon.ico" type="image/x-icon">
     <style>
         body {
             width: 100%;
@@ -28,7 +29,7 @@
         #app {
             display: flex;
             display: -webkit-flex;
-            flex-flow: column nowrap;
+            flex-flow: row nowrap;
             justify-content: flex-start;
             align-items: flex-start;
         }
@@ -38,7 +39,6 @@
         }
 
         .h1 {
-            margin: 1em 0 0 0;
             width: calc(100% - 1em);
             padding-left: 1em;
             font-size: 2em;
@@ -174,17 +174,36 @@
         }
 
         .navigation {
+            min-width: 10em;
             display: flex;
             display: -webkit-flex;
-            flex-flow: row wrap;
+            flex-flow: column nowrap;
             justify-content: flex-start;
             align-items: flex-start;
         }
 
         .navigation a {
-            height: 1em;
-            line-height: 1em;
-            margin: 5px;
+            width: 100%;
+        }
+
+        .navigation div {
+            width: calc(100% - 1em);
+            padding-left: 1em;
+            height: 2em;
+            line-height: 2em;
+            transition: background-color 0.2s, color 0.2s;
+            -moz-transition: background-color 0.2s, color 0.2s;
+            -webkit-transition: background-color 0.2s, color 0.2s;
+            -o-transition: background-color 0.2s, color 0.2s;
+        }
+
+        .navigation div:hover {
+            color: #fff;
+            background-color: #d63a4a;
+        }
+
+        .main {
+            flex-grow: 1;
         }
     </style>
 </head>
@@ -192,6 +211,15 @@
 <body>
     <div id="app">
         <div class="navigation">
+            {% if class_id == 0 %}
+            <a href="/dynamics/0/" style="color: #d63a4a; pointer-events:none; text-decoration: underline;">
+                <div>动态</div>
+            </a>
+            {% else %}
+            <a href="/dynamics/0/">
+                <div>全部</div>
+            </a>
+            {% endif %}
             {% for i in class %}
             {% if i.id == class_id %}
             <a href="/dynamics/{{ i.id }}/" style="color: #d63a4a; pointer-events:none; text-decoration: underline;">
@@ -204,45 +232,47 @@
             {% endif %}
             {% endfor %}
         </div>
-        {% for key,value in data.items %}
-        {% if value|length != 0 %}
-        <div class="h1">{{ key }}</div>
-        <div class="flex_row">
-            {% for u_name,u_info in value.items %}
-            <div class="flex_block">
-                <div class="h2">
-                    <div class="face"><img src="{{ u_info.face }}"></div>
-                    <a href="https://space.bilibili.com/{{ u_info.uid }}/" target="_blank">{{ u_name }}</a>
-                    <span style="color: gray; margin-left: 0.5em">{{ u_info.note }}</span>
-                </div>
-                <div class="card_box">
-                    {% for i in u_info.dynamics%}
-                    <a href="{{ i.link }}" target="_blank">
-                        <div class="card">
-                            <div class="card_img">
-                                <img src="{{ i.pic }}">
-                            </div>
-                            <div class="card_title">
-                                <div class="card_title_main">{{ i.title }}</div>
-                                <div class="card_title_time">
-                                    <span>{{ i.tname }}</span>
-                                    <span>{{ i.pubdate }}</span>
+        <div class="main">
+            {% for key,value in data.items %}
+            {% if value|length != 0 %}
+            <div class="h1">{{ key }}</div>
+            <div class="flex_row">
+                {% for u_name,u_info in value.items %}
+                <div class="flex_block">
+                    <div class="h2">
+                        <div class="face"><img src="{{ u_info.face }}"></div>
+                        <a href="https://space.bilibili.com/{{ u_info.uid }}/" target="_blank">{{ u_name }}</a>
+                        <span style="color: gray; margin-left: 0.5em">{{ u_info.note }}</span>
+                    </div>
+                    <div class="card_box">
+                        {% for i in u_info.dynamics%}
+                        <a href="{{ i.link }}" target="_blank">
+                            <div class="card">
+                                <div class="card_img">
+                                    <img src="{{ i.pic }}">
+                                </div>
+                                <div class="card_title">
+                                    <div class="card_title_main">{{ i.title }}</div>
+                                    <div class="card_title_time">
+                                        <span>{{ i.tname }}</span>
+                                        <span>{{ i.pubdate }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    {% endfor %}
+                        </a>
+                        {% endfor %}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
+            {% endif %}
             {% endfor %}
-        </div>
-        {% endif %}
-        {% endfor %}
-        <div class="h1">无动态</div>
-        <div class="dynamics_none">
-            {% for uid,name in dynamics_none%}
-            <a href="https://space.bilibili.com/{{ uid }}/" target="_blank">{{ name }}</a>
-            {% endfor %}
+            <div class="h1">无动态</div>
+            <div class="dynamics_none">
+                {% for uid,name in dynamics_none%}
+                <a href="https://space.bilibili.com/{{ uid }}/" target="_blank">{{ name }}</a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>

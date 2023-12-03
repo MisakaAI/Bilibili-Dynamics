@@ -62,7 +62,7 @@ local_settings.py
 migrations/
 db.sqlite3
 db.sqlite3-journal
-batch_script.py
+test*.py
 
 # Django other
 /static/
