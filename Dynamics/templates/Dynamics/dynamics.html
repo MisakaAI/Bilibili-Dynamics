@@ -136,12 +136,12 @@
         }
 
         .card_picture {
-            width: 240px;
-            height: 150px;
+            width: auto;
+            height: auto;
             overflow: hidden;
             display: flex;
             display: -webkit-flex;
-            flex-flow: row wrap;
+            flex-flow: row nowrap;
             justify-content: flex-start;
             align-items: flex-start;
         }
@@ -152,7 +152,7 @@
 
         .card_picture img {
             max-width: 100%;
-            max-height: 100%;
+            height: auto;
         }
 
         .card_title {
@@ -209,7 +209,8 @@
         }
 
         .navigation {
-            min-width: 10em;
+            position: fixed;
+            width: 10em;
             display: flex;
             display: -webkit-flex;
             flex-flow: column nowrap;
@@ -239,7 +240,7 @@
         }
 
         .main {
-            flex-grow: 1;
+            margin-left: 10em;
         }
     </style>
 </head>
@@ -277,7 +278,7 @@
                 <div class="flex_block">
                     <div class="h2">
                         <div class="face"><img src="{{ u_info.face }}"></div>
-                        <a href="https://space.bilibili.com/{{ u_info.uid }}/" target="_blank">{{ u_name }}</a>
+                        <a href="https://space.bilibili.com/{{ u_info.uid }}/dynamic" target="_blank">{{ u_name }}</a>
                         <span style="color: gray; margin-left: 0.5em">{{ u_info.note }}</span>
                     </div>
                     <div class="card_box">
@@ -327,7 +328,7 @@
             <div class="h1">无动态</div>
             <div class="dynamics_none">
                 {% for uid,name in dynamics_none%}
-                <a href="https://space.bilibili.com/{{ uid }}/" target="_blank">{{ name }}</a>
+                <a href="https://space.bilibili.com/{{ uid }}/dynamic" target="_blank">{{ name }}</a>
                 {% endfor %}
             </div>
         </div>
