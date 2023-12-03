@@ -90,10 +90,12 @@ def dynamics(request,class_id=False):
                 u_dynamics['face'] = p['cards'][0]['desc']['user_profile']['info']['face']
                 # 如果有动态
                 for i in p['cards']:
+                    timestamp = i['desc']['timestamp']
+                    # 8 视频投稿
                     if i['desc']['type'] == 8:
-                        timestamp = i['card']['pubdate']
                         if is_within_seven_days(timestamp) and block_keywords(i['card']['title']):
                             u_dynamics['dynamics'].append({
+                                "type": i['desc']['type'],
                                 "aid": i['card']['aid'],
                                 "link": i['card']['short_link_v2'],
                                 "pic": i['card']['pic'],
@@ -101,6 +103,31 @@ def dynamics(request,class_id=False):
                                 "tname": i['card']['tname'],
                                 "pubdate": get_beijing_time(timestamp),
                             })
+                    # 2 图片动态
+                    elif i['desc']['type'] == 2:
+                        if is_within_seven_days(timestamp) and block_keywords(i['card']['item']['description']):
+                            d = {
+                                "type": i['desc']['type'],
+                                "dynamic_id": i['desc']['dynamic_id'],
+                                "text": i['card']['item']['description'],
+                                "pubdate": get_beijing_time(timestamp),
+                                "pictures": []
+                            }
+                            if 'pictures' in i['card']['item']:
+                                for pic in i['card']['item']['pictures']:
+                                    d['pictures'].append(pic['img_src'])
+                            u_dynamics['dynamics'].append(d)
+                    # 4 文字动态
+                    elif i['desc']['type'] == 4:
+                        if is_within_seven_days(timestamp) and block_keywords(i['card']['item']['content']):
+                            u_dynamics['dynamics'].append({
+                                "type": i['desc']['type'],
+                                "dynamic_id": i['desc']['dynamic_id'],
+                                "text": i['card']['item']['content'],
+                                "pubdate": get_beijing_time(timestamp),
+                            })
+                    else:
+                        pass
             # 如果近期动态列表数量不为0 加入 动态列表
             if len(u_dynamics['dynamics']) != 0:
                 dynamics_list[f.name][f_user.name] = u_dynamics

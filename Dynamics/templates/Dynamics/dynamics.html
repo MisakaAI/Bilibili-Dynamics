@@ -99,6 +99,21 @@
             background-color: #eee;
         }
 
+        .card_2 {
+            width: auto;
+            max-width: 480px;
+            height: 220px;
+            margin: 5px;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            border: solid 1px #ccc;
+            overflow: hidden;
+        }
+
         .card:hover {
             background-color: #ddd;
         }
@@ -118,6 +133,26 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        .card_picture {
+            width: 240px;
+            height: 150px;
+            overflow: hidden;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .card_picture div {
+            flex-grow: 1;
+        }
+
+        .card_picture img {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .card_title {
@@ -246,6 +281,26 @@
                     </div>
                     <div class="card_box">
                         {% for i in u_info.dynamics%}
+                        {% if i.type == 2 or i.type == 4 %}
+                        <a href="https://www.bilibili.com/opus/{{ i.dynamic_id }}" target="_blank">
+                            <div class="card_2">
+                                {% if i.type == 2 %}
+                                <div class="card_picture">
+                                    {% for p in i.pictures %}
+                                    <div><img src="{{ p }}"></div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <div class="card_title">
+                                    <div class="card_title_main">{{ i.text }}</div>
+                                    <div class="card_title_time">
+                                        <span></span>
+                                        <span>{{ i.pubdate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% elif i.type == 8 %}
                         <a href="{{ i.link }}" target="_blank">
                             <div class="card">
                                 <div class="card_img">
@@ -260,6 +315,7 @@
                                 </div>
                             </div>
                         </a>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
