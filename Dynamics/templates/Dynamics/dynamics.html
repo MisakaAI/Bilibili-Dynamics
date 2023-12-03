@@ -233,8 +233,9 @@
         }
 
         .navigation div:hover {
-            color: #fff;
-            background-color: #d63a4a;
+            color: #d63a4a;
+            pointer-events:none;
+            text-decoration: underline;
         }
 
         .main {
@@ -247,7 +248,7 @@
     <div id="app">
         <div class="navigation">
             {% if class_id == 0 %}
-            <a href="/dynamics/0/" style="color: #d63a4a; pointer-events:none; text-decoration: underline;">
+            <a href="/dynamics/0/" style="color: #fff; background-color: #d63a4a;">
                 <div>动态</div>
             </a>
             {% else %}
@@ -257,7 +258,7 @@
             {% endif %}
             {% for i in class %}
             {% if i.id == class_id %}
-            <a href="/dynamics/{{ i.id }}/" style="color: #d63a4a; pointer-events:none; text-decoration: underline;">
+            <a href="/dynamics/{{ i.id }}/" style="color: #fff; background-color: #d63a4a;">
                 <div>{{ i.name }}</div>
             </a>
             {% else %}
