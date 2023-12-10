@@ -15,9 +15,9 @@ class followingsAdmin(admin.ModelAdmin):
     search_fields = ['name','uid']
     list_filter = ['_class']
 
-# from .models import follow_class
-# admin.site.register(follow_class)
-
 @admin.register(follow_class)
 class follow_classAdmin(admin.ModelAdmin):
     list_display = ['name','show','star']
+
+from .models import block_words
+admin.site.register(block_words)

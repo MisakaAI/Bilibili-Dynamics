@@ -22,9 +22,9 @@
             color: inherit;
         }
 
-        a:hover {
+        /* a:hover {
             color: green;
-        }
+        } */
 
         #app {
             display: flex;
@@ -84,6 +84,8 @@
             flex-flow: row wrap;
             justify-content: flex-start;
             align-items: flex-start;
+            padding-left: 1em;
+            padding-bottom: 1em;
         }
 
         .card {
@@ -216,6 +218,7 @@
             flex-flow: column nowrap;
             justify-content: flex-start;
             align-items: flex-start;
+            border-right: solid 1px #ddd;
         }
 
         .navigation a {
@@ -233,7 +236,7 @@
             -o-transition: background-color 0.2s, color 0.2s;
         }
 
-        .navigation div:hover {
+        .navigation a:hover {
             color: #d63a4a;
             pointer-events:none;
             text-decoration: underline;
@@ -249,7 +252,7 @@
     <div id="app">
         <div class="navigation">
             {% if class_id == 0 %}
-            <a href="/dynamics/0/" style="color: #fff; background-color: #d63a4a;">
+            <a href="/dynamics/0/" style="color: #fff; background-color: #d63a4a; pointer-events:none;">
                 <div>动态</div>
             </a>
             {% else %}
@@ -259,7 +262,7 @@
             {% endif %}
             {% for i in class %}
             {% if i.id == class_id %}
-            <a href="/dynamics/{{ i.id }}/" style="color: #fff; background-color: #d63a4a;">
+            <a href="/dynamics/{{ i.id }}/" style="color: #fff; background-color: #d63a4a; pointer-events:none;">
                 <div>{{ i.name }}</div>
             </a>
             {% else %}

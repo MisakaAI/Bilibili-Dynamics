@@ -46,6 +46,21 @@
         li {
             width: 300px;
         }
+
+        .default_list {
+            width: 450px;
+            margin-top: 1em;
+            display: flex;
+            display: -webkit-flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .default_list a {
+            width: 6em;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -54,6 +69,10 @@
         <h1>B站关注列表</h1>
         <h3>@勤劳的牧场主</h3>
         <!-- {{ data }} -->
+        <div class="default_list">
+            <a href="http://127.0.0.1:8000/dynamics/0/">默认列表</a>
+            <a href="http://127.0.0.1:8000/dynamics/1">非默认列表</a>
+        </div>
         {% for x,y in data.items %}
         <div>
             <a href="http://127.0.0.1:8000/dynamics/{{ y.id }}/"><h2>{{ x }}</h2></a>

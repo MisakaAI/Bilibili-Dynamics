@@ -19,7 +19,6 @@ class followings(models.Model):
         verbose_name_plural='关注列表'
 
 # 分类
-
 class follow_class(models.Model):
     name = models.CharField(max_length=20, unique=True, verbose_name='分类名称')
     show = models.BooleanField(default=True, verbose_name='导航栏中展示')
@@ -31,3 +30,14 @@ class follow_class(models.Model):
     class Meta:
         verbose_name='类型列表'
         verbose_name_plural='类型列表'
+
+# 屏蔽词语
+class block_words(models.Model):
+    key = models.CharField(max_length=30, unique=True, verbose_name='关键词')
+
+    def __str__(self) -> str:
+        return self.key
+
+    class Meta:
+        verbose_name='屏蔽词语'
+        verbose_name_plural='屏蔽词语'

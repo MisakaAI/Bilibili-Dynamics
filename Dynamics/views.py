@@ -55,9 +55,9 @@ def dynamics(request,class_id=False):
         return time.strftime('%Y-%m-%d %H:%M', beijing_time)
     # 关键词屏蔽
     def block_keywords(t):
-        block_list = ['直播回放','直播录像']
-        for i in block_list:
-            if i in t:
+        # block_list = ['直播回放','直播录像']
+        for i in block_words.objects.all():
+            if i.key in t:
                 return False
         return True
     # 默认展示列表
@@ -65,7 +65,7 @@ def dynamics(request,class_id=False):
         _class = follow_class.objects.filter(star=True)
     # 非默认展示列表
     elif class_id == 1:
-        _class = follow_class.objects.filter(star=False)
+        _class = follow_class.objects.all()
     # 按分类展示
     else:
         _class = follow_class.objects.filter(id=class_id)
@@ -76,6 +76,8 @@ def dynamics(request,class_id=False):
         dynamics_list[f.name] = {}
         if class_id == 0:
             followings_list = followings.objects.filter(_class=f, show=True)
+        elif class_id == 1:
+            followings_list = followings.objects.filter(_class=f, show=False)
         else:
             followings_list = followings.objects.filter(_class=f)
         for f_user in followings_list:
